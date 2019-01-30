@@ -19,3 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/collection-console', 'HomeController@console')->name('collection-console');
+
+Route::group(['prefix' => '/auth/web'], function() {
+
+    Route::get('loadUserAssignedModules',           'Api\Access\LoadModules@loadUserAssignedModule');
+});

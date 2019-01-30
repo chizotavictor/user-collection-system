@@ -104,14 +104,14 @@
         </style>
 
         <!-- <script src="/theme/examples/view/data-view.js"></script> -->
-        <script type="text/javascript" src="/theme/examples/shared/include-ext.js"></script>
-        <script type="text/javascript" src="/theme/examples/shared/options-toolbar.js"></script>
+        <script type="text/javascript" src="{{ asset('theme/examples/shared/include-ext.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('theme/examples/shared/options-toolbar.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-        
+    
         <script charset="utf-8">
             Ext.Loader.setConfig({enabled: true});
 
-            Ext.Loader.setPath('Ext.ux', '/theme/examples/ux');
+            Ext.Loader.setPath('Ext.ux', 'theme/examples/ux');
 
             Ext.require([
                 '*',
@@ -163,8 +163,21 @@
                     margins: '2 5 5 5',
                     activeItem: 0,
                     border: false,
-                    items: [],
+                    items: menuItemsTabs,
                 };
+
+                //  Menu Api Call
+                var store = Ext.create('Ext.data.TreeStore', {
+                    root: {
+                        expanded: true
+                    },
+                    proxy: {
+                        type: 'ajax',
+                        //url: '/fake-data/modules.json'
+                        url: '/auth/web/loadUserAssignedModules'
+                    }
+                });
+
     
 
                 // This is the Details panel that contains the description for each example layout.
@@ -194,7 +207,7 @@
                 // example of putting together a full-screen BorderLayout within a Viewport.
                 Ext.create('Ext.Viewport', {
                     layout: 'border',
-                    title: 'Ext Layout Browser',
+                    // title: 'Ext Layout Browser',
                     items: [
                         {
                         xtype: 'box',
@@ -236,8 +249,9 @@
             });
 
         </script>
-        
-   
+        <script>var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';</script>
+        <script src="{{ asset('js/modules.js') }}"></script>
+        <script src="{{ asset('js/directory-manager.js') }}"></script>
     </head>
 
     <body>
